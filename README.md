@@ -27,3 +27,10 @@ What is the full task list? This is the list of all tasks described by your mana
 * Which tasks still need to be assigned? 
 * Which tasks are assigned to multiple employees?
 To do some of this work, create three methods on your Main class.
+
+Tips:
+
+Be sure the sets you pass to these methods, don't mutate in these methods.   In other words, return a new set.
+Create a getUnion method, that takes a List of Sets, and will return the union of all the sets.  
+Create a getIntersect method, that takes two Sets, and returns the intersection of the sets.
+Create a getDifference method, that takes two Sets, and removes the second argument's set from the first.
