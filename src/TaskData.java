@@ -1,4 +1,5 @@
-import java.util.List;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 
 public class TaskData {
@@ -40,10 +41,29 @@ public class TaskData {
             Data Design, Task Table, High
             Data Access, Write Views, Low
             """;
-    
-    public static Set<Task> getTaskData(String owner){
-        
-        
+
+    public static Set<Task> getTasks(String owner) {
+        Set<Task> taskList = new HashSet<>();
+
+        String user = ("ann,bob,carol".contains(owner.toLowerCase())) ? owner : null;
+
+        String selectedData = switch (owner.toLowerCase()) {
+            case "ann" -> annTasks;
+            case "bob" -> bobTasks;
+            case "carol" -> carolTask;
+            default -> allTasks;
+        };
+
+        for (String taskData : selectedData.split("\n")) {
+            String[] data = taskData.split(",");
+            Arrays.asList(data).replaceAll(String::trim);
+
+            Status status = (data.length == 3) ? Status.IN_QUEUE : Status.valueOf(data[3].toUpperCase().replace(' ', '_'));
+            Priority priority = Priority.valueOf(data[2].toUpperCase());
+            taskList.add(new Task(user, data[0], data[1], status, priority));
+        }
+
+        return taskList;
     }
 
 }
